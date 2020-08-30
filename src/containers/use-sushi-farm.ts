@@ -42,21 +42,23 @@ function useSushiFarm() {
   const [lastHarvest, setLastHarvest] = useState<null | ethers.BigNumber>(null);
 
   const getSushiFarmStats = async () => {
-    const { SushiFarm, Masterchef } = contracts;
+    const { SushiFarm, Masterchef, SushiToken } = contracts;
 
     setIsGettingSushiFarmStats(true);
 
-    const [ratio, time, pending, user] = await Promise.all([
+    const [ratio, time, pending, user, sushiBal] = await Promise.all([
       SushiFarm.getGSushiOverSushiRatio(),
       SushiFarm.lastHarvest(),
       // Pool ID is 12
       Masterchef.pendingSushi(12, SushiFarm.address),
       // Get user info
       Masterchef.userInfo(12, SushiFarm.address),
+      // Sushi Balance
+      SushiToken.balanceOf(SushiFarm.address)
     ]);
 
     setTotalLockedGSushi(user[0]);
-    setHarvestableAmount(pending);
+    setHarvestableAmount(pending.add(sushiBal));
     setLastHarvest(time);
     setGSushiOverSushiRatio(ratio);
 
@@ -187,7 +189,7 @@ function useSushiFarm() {
         text: "Harvesting successful!",
         type: "success",
       });
-    } catch (e) {}
+    } catch (e) { }
     setIsHavesting(false);
   };
 
