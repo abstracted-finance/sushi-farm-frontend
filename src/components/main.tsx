@@ -16,6 +16,8 @@ export const Main = () => {
         <Col span={18}>
           <Text h2>Sushi Farmer</Text>
           <Text p type="secondary">
+            This is a DEGEN FARMING VAULT. Yields go back into the farm.{" "}
+            <Link color href="https://twitter.com/ka_toos/status/1299961802877366280">This is a dumb strategy.</Link>{" "}
             Deposit your $SUSHI, earn gSushi (auto grazing SUSHI).{" "}
             <Link color href="https://github.com/abstracted-finance/sushi-farm">
               Read more here.
