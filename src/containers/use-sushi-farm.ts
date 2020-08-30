@@ -77,13 +77,21 @@ function useSushiFarm() {
           text: "Approving contract!",
         });
 
-        await SushiToken["approve(address,uint256)"](
+        const approveTx = await SushiToken["approve(address,uint256)"](
           SushiFarm.address,
           ethers.constants.MaxUint256
         );
+        await approveTx.wait();
+
+        setToast({
+          text: "Approved contract!",
+          type: "success",
+        });
       }
 
-      const tx = await SushiFarm.deposit(depositAmountWei);
+      const tx = await SushiFarm.deposit(depositAmountWei, {
+        gasLimit: 600000,
+      });
 
       setToast({
         text: "Deposit pending!",
@@ -122,13 +130,21 @@ function useSushiFarm() {
           text: "Approving contract!",
         });
 
-        await GrazingSushiToken["approve(address,uint256)"](
+        const approveTx = await GrazingSushiToken["approve(address,uint256)"](
           SushiFarm.address,
           ethers.constants.MaxUint256
         );
+        await approveTx.wait();
+
+        setToast({
+          text: "Approved contract!",
+          type: "success",
+        });
       }
 
-      const tx = await SushiFarm.withdraw(withdrawAmountWei);
+      const tx = await SushiFarm.withdraw(withdrawAmountWei, {
+        gasLimit: 600000,
+      });
 
       setToast({
         text: "Withdraw pending!",
@@ -194,7 +210,7 @@ function useSushiFarm() {
     isHarvesting,
     lastHarvest,
     harvestableAmount,
-    totalLockedGSushi
+    totalLockedGSushi,
   };
 }
 
