@@ -24,7 +24,7 @@ export const Main = () => {
             </Link>
           </Text>
           <Text p type="error">
-            Holding gSushi means being exposed to impermenant loss on Uniswap's SUSHI/ETH pool. Contracts
+            Holding gSushi means being exposed to impermanent loss on Uniswap's SUSHI/ETH pool. Contracts
             unaudited, enter at your own risk.
           </Text>
         </Col>
