@@ -197,7 +197,7 @@ export const Dashboard = () => {
       <Row gap={0.33}>
         <Col span={8} style={{ textAlign: "center" }}>
           <Card>
-            <Text h3>Sushi Balance</Text>
+            <Text h3>SUSHI Balance</Text>
             <Text type="secondary">
               {isGettingSushiBalance && "..."}
               {!isGettingSushiBalance && prettyString(sushiBalStr)}
@@ -217,7 +217,7 @@ export const Dashboard = () => {
         </Col>
         <Col span={8} style={{ textAlign: "center" }}>
           <Card>
-            <Text h3>Grazing Sushi Balance</Text>
+            <Text h3>gSushi Balance</Text>
             <Text type="secondary">
               {isGettingGSushiBalance && "..."}
               {!isGettingGSushiBalance && prettyString(gSushiBalStr)}
