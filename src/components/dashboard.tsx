@@ -18,7 +18,7 @@ import useSushiFarm from "../containers/use-sushi-farm";
 import { prettyString } from "./utils";
 
 export const Dashboard = () => {
-  const { isGettingSushiBalance, sushiBalance } = useSushiToken.useContainer();
+  const { isGettingSushiBalance, sushiBalance, usdPerSushi } = useSushiToken.useContainer();
   const {
     isGettingGSushiBalance,
     gSushiBalance,
@@ -119,51 +119,40 @@ export const Dashboard = () => {
     );
   }
 
+  // TLV in Sushi in USD
+  let tlvSushiUSDStr = '...'
+  if (usdPerSushi && totalLockedStr !== '...') {
+    tlvSushiUSDStr = (parseFloat(usdPerSushi.toString()) * parseFloat(totalLockedStr)).toFixed(2) + ' USD'
+  }
+
   return (
     <>
-      <Row>
-        <Col style={{ textAlign: "center" }}>
-          <Card>
-            <Text h4>Total SUSHI Locked in Contract</Text>
-            <Text type="secondary">
-              {!totalLockedGSushi && !gSushiOverSushiRatio && "..."}
-              {totalLockedGSushi &&
-                gSushiOverSushiRatio &&
-                prettyString(totalLockedStr)}
-            </Text>
-          </Card>
-        </Col>
-      </Row>
-
-      <Spacer y={1} />
-
       <Row gap={0.33}>
-        <Col span={8}>
+        <Col span={8} style={{ textAlign: "center" }}>
           <Card>
-            <Text h3>Sushi Balance</Text>
+            <Text h4>SUSHI Price</Text>
             <Text type="secondary">
-              {isGettingSushiBalance && "..."}
-              {!isGettingSushiBalance && prettyString(sushiBalStr)}
+              {!usdPerSushi && '...'}
+              {usdPerSushi && `${usdPerSushi.toFixed(2)} USD`}
             </Text>
           </Card>
         </Col>
         <Col span={8} style={{ textAlign: "center" }}>
           <Card>
-            <Text h3>Ratio</Text>
+            <Text h4>Total SUSHI Locked</Text>
             <Text type="secondary">
-              1 gSushi = {isGettingSushiFarmStats && "..."}
-              {!isGettingSushiFarmStats &&
-                prettyString(gSushiOverSushiRatioStr)}{" "}
-              SUSHI
+              {!totalLockedGSushi && !gSushiOverSushiRatio && "..."}
+              {totalLockedGSushi &&
+                gSushiOverSushiRatio &&
+                `${prettyString(totalLockedStr)} SUSHI`}
             </Text>
           </Card>
         </Col>
-        <Col span={8} style={{ textAlign: "right" }}>
+        <Col span={8} style={{ textAlign: "center" }}>
           <Card>
-            <Text h3>Grazing Sushi Balance</Text>
+            <Text h4>Total USD Locked</Text>
             <Text type="secondary">
-              {isGettingGSushiBalance && "..."}
-              {!isGettingGSushiBalance && prettyString(gSushiBalStr)}
+              {tlvSushiUSDStr}
             </Text>
           </Card>
         </Col>
@@ -171,7 +160,8 @@ export const Dashboard = () => {
 
       <Spacer y={1} />
 
-      <Row>
+
+      <Row gap={0.33}>
         <Col>
           <Card>
             <Text h4>Harvest</Text>
@@ -198,6 +188,40 @@ export const Dashboard = () => {
             >
               Harvest
             </Button>
+          </Card>
+        </Col>
+      </Row>
+
+      <Spacer y={1} />
+
+      <Row gap={0.33}>
+        <Col span={8} style={{ textAlign: "center" }}>
+          <Card>
+            <Text h3>Sushi Balance</Text>
+            <Text type="secondary">
+              {isGettingSushiBalance && "..."}
+              {!isGettingSushiBalance && prettyString(sushiBalStr)}
+            </Text>
+          </Card>
+        </Col>
+        <Col span={8} style={{ textAlign: "center" }}>
+          <Card>
+            <Text h3>Ratio</Text>
+            <Text type="secondary">
+              1 gSushi = {isGettingSushiFarmStats && "..."}
+              {!isGettingSushiFarmStats &&
+                prettyString(gSushiOverSushiRatioStr)}{" "}
+              SUSHI
+            </Text>
+          </Card>
+        </Col>
+        <Col span={8} style={{ textAlign: "center" }}>
+          <Card>
+            <Text h3>Grazing Sushi Balance</Text>
+            <Text type="secondary">
+              {isGettingGSushiBalance && "..."}
+              {!isGettingGSushiBalance && prettyString(gSushiBalStr)}
+            </Text>
           </Card>
         </Col>
       </Row>
