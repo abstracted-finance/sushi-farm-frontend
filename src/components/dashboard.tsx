@@ -100,10 +100,10 @@ export const Dashboard = () => {
     18
   );
 
-  // 5% rewards
+  // 0.05% rewards
   const harvesterRewardAmount = (harvestableAmount || ethers.constants.Zero)
     .mul(ethers.BigNumber.from("5"))
-    .div(ethers.BigNumber.from("100"));
+    .div(ethers.BigNumber.from("10000"));
   const harvesterRewardAmountStr = ethers.utils.formatUnits(
     harvesterRewardAmount,
     18
