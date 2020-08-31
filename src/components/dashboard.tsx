@@ -169,7 +169,7 @@ export const Dashboard = () => {
               {harvestableAmount &&
                 `${prettyString(
                   harvestableAmountStr
-                )} SUSHI available for harvest. Caller gets ${prettyString(
+                )} SUSHI will be harvested for those who deposit. The harvester will only get ${prettyString(
                   harvesterRewardAmountStr
                 )} SUSHI for GAS compensation.`}
             </Text>
