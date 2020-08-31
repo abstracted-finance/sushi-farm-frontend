@@ -175,7 +175,7 @@ function useSushiFarm() {
     const { SushiFarm, GrazingSushiToken } = contracts;
     setIsHavesting(true);
     try {
-      const tx = await SushiFarm.harvest({ gasLimit: 450000 });
+      const tx = await SushiFarm.harvest({ gasLimit: 600000 });
       setToast({
         text: "Harvesting pending!",
       });
