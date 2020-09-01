@@ -37,9 +37,9 @@ export const DSNX = () => {
               color
               href="https://github.com/abstracted-finance/sushi-farm/tree/snx-eth-sushi-lp-farm"
             >
-              Read more here.{" "}
+              Read more here.
             </Link>
-            2.5% fee to caller, 2.5% fee to developer.
+            {" "}2.5% fee to caller, 2.5% fee to developer.
           </Text>
           <Text p type="error">
             Degen SNX-ETH UNI-V2 automatically farms SUSHI and redistributes

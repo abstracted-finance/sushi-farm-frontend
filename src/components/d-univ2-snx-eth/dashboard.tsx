@@ -125,9 +125,9 @@ export const Dashboard = function () {
           <Card>
             <Text h4>Harvest</Text>
             <Text type="secondary">
-              {harvestableAmountStr} SNX-ETH LP will be harvested for those who
-              deposit. Only {harvesterRewardsAmountStr} SNX-ETH LP will be
-              rewarded to the caller (and developer).
+              {harvestableAmountStr} SNX-ETH LP will be reinvested. Only{" "}
+              {harvesterRewardsAmountStr} SNX-ETH LP will be rewarded to the
+              caller (and developer, each).
             </Text>
             <Button
               onClick={() => {
