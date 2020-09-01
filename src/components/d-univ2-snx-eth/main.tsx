@@ -1,4 +1,5 @@
 import { Page, Row, Col, Text, Button, Link } from "@zeit-ui/react";
+import { useRouter } from "next/router";
 
 import { Dashboard } from "./dashboard";
 
@@ -9,6 +10,7 @@ import {
 } from "../../containers/use-selected-vaults";
 
 export const DSNX = () => {
+  const router = useRouter();
   const { connected } = useWeb3.useContainer();
   const { setSelectedVault } = useSelectedVaults.useContainer();
 
@@ -18,7 +20,10 @@ export const DSNX = () => {
         <Col style={{ textAlign: "right" }}>
           <Button
             type="secondary"
-            onClick={() => setSelectedVault(Vaults.None)}
+            onClick={async () => {
+              await router.push("/");
+              setSelectedVault(Vaults.None);
+            }}
           >
             Back
           </Button>
@@ -26,7 +31,7 @@ export const DSNX = () => {
       </Row>
       <Row>
         <Col span={6}>
-          <img src="./snake.png" width={200} height={200} />
+          <img src="/snake.png" width={200} height={200} />
         </Col>
         <Col span={18}>
           <Text h2>SNX-ETH UNI-V2 Farmer</Text>
@@ -38,8 +43,8 @@ export const DSNX = () => {
               href="https://github.com/abstracted-finance/sushi-farm/tree/snx-eth-sushi-lp-farm"
             >
               Read more here.
-            </Link>
-            {" "}2.5% fee to caller, 2.5% fee to developer.
+            </Link>{" "}
+            2.5% fee to caller, 2.5% fee to developer.
           </Text>
           <Text p type="error">
             Degen SNX-ETH UNI-V2 automatically farms SUSHI and redistributes

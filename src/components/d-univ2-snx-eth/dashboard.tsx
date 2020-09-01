@@ -57,11 +57,37 @@ export const Dashboard = function () {
     ? prettyString(ethers.utils.formatUnits(harvestableAmount, 18))
     : "...";
 
+  const harvestableAmountUsdStr =
+    harvestableAmount && usdPerSnxEthLpToken
+      ? prettyString(
+          ethers.utils.formatUnits(
+            harvestableAmount
+              .mul(usdPerSnxEthLpToken)
+              .div(ethers.utils.parseUnits("1", 18)),
+            18
+          )
+        ) + " USD"
+      : "...";
+
   const harvesterRewardsAmountStr = harvestableAmount
     ? prettyString(
         ethers.utils.formatUnits(harvestableAmount.mul(25).div(1000), 18)
       )
     : "...";
+
+  const harvesterRewardsAmountUsdStr =
+    harvestableAmount && usdPerSnxEthLpToken
+      ? prettyString(
+          ethers.utils.formatUnits(
+            harvestableAmount
+              .mul(25)
+              .div(1000)
+              .mul(usdPerSnxEthLpToken)
+              .div(ethers.utils.parseUnits("1", 18)),
+            18
+          )
+        ) + " USD"
+      : "...";
 
   const lockedSnxEthLpStr = lockedSnxEthLp
     ? prettyString(ethers.utils.formatUnits(lockedSnxEthLp, 18))
@@ -125,9 +151,9 @@ export const Dashboard = function () {
           <Card>
             <Text h4>Harvest</Text>
             <Text type="secondary">
-              {harvestableAmountStr} SNX-ETH LP will be reinvested. Only{" "}
-              {harvesterRewardsAmountStr} SNX-ETH LP will be rewarded to the
-              caller (and developer, each).
+              {harvestableAmountStr} SNX-ETH LP ({harvestableAmountUsdStr}) will
+              be reinvested. Only {harvesterRewardsAmountStr} SNX-ETH LP (
+              {harvesterRewardsAmountUsdStr}) will be rewarded to the caller.
             </Text>
             <Button
               onClick={() => {
