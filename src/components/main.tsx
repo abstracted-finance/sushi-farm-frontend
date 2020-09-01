@@ -1,34 +1,47 @@
-import { Page, Row, Col, Text, Button, Link } from "@zeit-ui/react";
+import {
+  Page,
+  Row,
+  Col,
+  Text,
+  Button,
+  Link,
+  Image,
+  Spacer,
+  Card,
+} from "@zeit-ui/react";
 
-import { Dashboard } from "./dashboard";
-
+import {
+  default as useSelectedVaults,
+  Vaults,
+} from "../containers/use-selected-vaults";
 import useWeb3 from "../containers/use-web3";
 
+import { GSushi } from "./g-sushi/main";
+import { DSNX } from "./d-univ2-snx-eth/main";
+
 export const Main = () => {
-  const { connect, isConnecting, connected } = useWeb3.useContainer();
+  const { connected, connect, isConnecting } = useWeb3.useContainer();
+  const { setSelectedVault, selectedVault } = useSelectedVaults.useContainer();
 
   return (
     <Page>
-      <Row>
-        <Col span={6}>
-          <img src="./sushi-cow.png" width={200} height={200} />
-        </Col>
-        <Col span={18}>
-          <Text h2>Sushi Farmer</Text>
-          <Text p type="secondary">
-            This is a DEGEN FARMING VAULT. Yields go back into the farm.{" "}
-            <Link color href="https://twitter.com/ka_toos/status/1299961802877366280">This is a dumb strategy.</Link>{" "}
-            Deposit your $SUSHI, earn gSushi (auto grazing SUSHI).{" "}
-            <Link color href="https://github.com/abstracted-finance/sushi-farm">
-              Read more here.
-            </Link>
-          </Text>
-          <Text p type="error">
-            Holding gSushi means being exposed to impermanent loss on Uniswap's SUSHI/ETH pool. Contracts
-            unaudited, enter at your own risk.
-          </Text>
-        </Col>
-      </Row>
+      {selectedVault === Vaults.None && (
+        <Row>
+          <Col>
+            <Text h2>DEGEN Sushi Farm</Text>
+            <Text type="secondary">
+              DEGENERATE vaults, powered by{" "}
+              <Link color href="https://www.coingecko.com/en/coins/sushi">
+                $SUSHI
+              </Link>
+              .
+            </Text>
+            <Text type="error">
+              Contracts unaudited, enter at your own risk.
+            </Text>
+          </Col>
+        </Row>
+      )}
 
       {!connected && (
         <Row>
@@ -40,7 +53,51 @@ export const Main = () => {
         </Row>
       )}
 
-      {connected && <Dashboard />}
+      {connected && selectedVault === Vaults.None && (
+        <>
+          <Row>
+            <Col span={6}>
+              <Text h2>Vaults</Text>
+            </Col>
+          </Row>
+          <Row gap={0.33}>
+            <Col span={12}>
+              <Card>
+                <Image width={200} height={200} src="./sushi-cow.png" />
+                <Text h3>Grazing SUSHI</Text>
+                <Text type="secondary">Deposit SUSHI, earn more SUSHI.</Text>
+                <Button
+                  onClick={() => setSelectedVault(Vaults.GSushi)}
+                  type="secondary"
+                  style={{ width: "100%" }}
+                >
+                  Select
+                </Button>
+              </Card>
+            </Col>
+            <Col span={12}>
+              <Card>
+                <Image width={200} height={200} src="./snake.png" />
+                <Text h3>Degen SNX-ETH UNI-V2</Text>
+                <Text type="secondary">
+                  Deposit SNX-ETH UNI-V2, earn more SNX-ETH UNI-V2
+                </Text>
+                <Button
+                  onClick={() => setSelectedVault(Vaults.DSNX)}
+                  type="secondary"
+                  style={{ width: "100%" }}
+                >
+                  Select
+                </Button>
+              </Card>
+            </Col>
+          </Row>
+        </>
+      )}
+
+      {connected && selectedVault === Vaults.GSushi && <GSushi />}
+
+      {connected && selectedVault === Vaults.DSNX && <DSNX />}
     </Page>
   );
 };

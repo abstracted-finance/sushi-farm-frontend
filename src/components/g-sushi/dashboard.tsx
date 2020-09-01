@@ -11,11 +11,11 @@ import {
 import { useState } from "react";
 import { ethers } from "ethers";
 
-import useSushiToken from "../containers/use-sushi-token";
-import useGrazingSushiToken from "../containers/use-grazing-sushi-token";
-import useSushiFarm from "../containers/use-sushi-farm";
+import useSushiToken from "../../containers/use-sushi-token";
+import useGrazingSushiToken from "../../containers/use-grazing-sushi-token";
+import useSushiFarm from "../../containers/use-sushi-farm";
 
-import { prettyString } from "./utils";
+import { prettyString } from "../utils";
 
 export const Dashboard = () => {
   const { isGettingSushiBalance, sushiBalance, usdPerSushi } = useSushiToken.useContainer();
