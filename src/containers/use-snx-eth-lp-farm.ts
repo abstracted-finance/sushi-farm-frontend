@@ -76,7 +76,7 @@ function useSnxEthLpFarm() {
           ERC20_ADDRESSES.SUSHI,
           ERC20_ADDRESSES.WETH,
         ])
-      )[0];
+      )[1];
 
       // Divide by 2 to get SNX amount
       wethBal = wethBal.div(2);
@@ -85,7 +85,7 @@ function useSnxEthLpFarm() {
           ERC20_ADDRESSES.WETH,
           ERC20_ADDRESSES.SNX,
         ])
-      )[0];
+      )[1];
 
       // How many UNIV2 SNX-ETH Tokens can we get given X sushi
       // https://github.com/Uniswap/uniswap-v2-core/blob/master/contracts/UniswapV2Pair.sol#L123
