@@ -56,6 +56,20 @@ export const Main = () => {
         </Row>
       )}
 
+      <Row>
+        <Col>
+          <Card type="error">
+            <Text h4>PLEASE EXIT VAULTS NOW</Text>
+            <Text h6>
+              The vaults are using Uniswap behind the scenes, the migration to
+              sushiswap has a large potential to break the vaults
+            </Text>
+          </Card>
+        </Col>
+      </Row>
+
+      <Spacer y={0.33} />
+
       {connected && selectedVault === Vaults.None && (
         <>
           <Row>
